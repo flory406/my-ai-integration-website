@@ -1,0 +1,70 @@
+/* ============================================================
+   FlorySite — Design Tokens
+   Change these to re-skin the whole site for a new project.
+   ============================================================ */
+:root {
+  /* ---- Surfaces / background ---- */
+  --bg: #08080c;
+  --bg-elevated: #0d0d14;
+  --surface: rgba(255, 255, 255, 0.03);
+  --surface-2: rgba(255, 255, 255, 0.05);
+  --surface-strong: rgba(255, 255, 255, 0.07);
+
+  /* ---- Borders ---- */
+  --border: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.14);
+  --border-glow: rgba(249, 115, 22, 0.35);
+
+  /* ---- Text ---- */
+  --text: #f5f5f7;
+  --text-soft: #c7c7cf;
+  --text-muted: #8b8b96;
+  --text-faint: #5c5c66;
+
+  /* ---- Accent (brand) ---- */
+  --accent: #f97316;
+  --accent-2: #fb923c;
+  --accent-deep: #ea580c;
+  --accent-glow: rgba(249, 115, 22, 0.55);
+  --accent-grad: linear-gradient(135deg, #fb923c 0%, #f97316 55%, #ea580c 100%);
+
+  /* ---- Status ---- */
+  --up: #4ade80;
+  --down: #f43f8e;
+
+  /* ---- Radii ---- */
+  --r-sm: 10px;
+  --r-md: 16px;
+  --r-lg: 24px;
+  --r-pill: 999px;
+
+  /* ---- Spacing scale ---- */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+  --space-9: 96px;
+  --space-10: 128px;
+
+  /* ---- Typography ---- */
+  --font-display: "Space Grotesk", "Inter", system-ui, sans-serif;
+  --font-body: "Inter", system-ui, -apple-system, sans-serif;
+
+  /* ---- Layout ---- */
+  --container: 1200px;
+  --container-wide: 1320px;
+  --nav-h: 80px;
+
+  /* ---- Effects ---- */
+  --shadow-card: 0 20px 60px -20px rgba(0, 0, 0, 0.7);
+  --shadow-glow: 0 0 40px -8px var(--accent-glow);
+  --blur-card: blur(14px);
+
+  /* ---- Motion ---- */
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur: 0.5s;
+}
