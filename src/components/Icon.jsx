@@ -110,6 +110,7 @@ const paths = {
     </>
   ),
   trend: <path d="M3 17l6-6 4 4 8-8M15 7h6v6" />,
+  close: <path d="M6 6l12 12M18 6L6 18" />,
 };
 
 export default function Icon({ name, size = 22, stroke = 2, className = "", style }) {
