@@ -749,6 +749,17 @@
     grid-template-columns: 1fr;
     gap: var(--space-6);
   }
+  /* let the single-column grid items shrink instead of overflowing */
+  .transform__text,
+  .transform__visual {
+    min-width: 0;
+  }
+  .transform__form {
+    max-width: 100%;
+  }
+  .transform__form input {
+    min-width: 0;
+  }
 }
 @media (max-width: 820px) {
   .showcase__grid {
@@ -768,10 +779,65 @@
   .hide-mobile {
     display: none;
   }
-  .hero__stage {
-    height: 300px;
-  }
   .marquee__item {
     font-size: 1.3rem;
+  }
+}
+
+/* ---- Dashboard mock: compact layout so it fits small phones ---- */
+@media (max-width: 620px) {
+  .dash {
+    font-size: 11px;
+  }
+  .dash__bar {
+    padding: 12px;
+  }
+  .dash__body {
+    padding: var(--space-3);
+  }
+  .dash__head h3 {
+    font-size: 1.15rem;
+  }
+  .dash__invite {
+    padding: 6px 10px;
+    font-size: 0.72rem;
+  }
+  .dash__stats {
+    gap: 8px;
+  }
+  .dstat {
+    padding: 9px;
+    min-width: 0;
+  }
+  .dstat__value {
+    font-size: 0.98rem;
+  }
+  /* scale the stat sparkline down so the value + chart fit the card */
+  .dstat__row svg {
+    width: 46px;
+    height: auto;
+  }
+  .dash__panels {
+    gap: 10px;
+  }
+  .dpanel {
+    padding: var(--space-3);
+  }
+  .dimport li {
+    gap: var(--space-2);
+  }
+  .dimport__icon {
+    width: 26px;
+    height: 26px;
+  }
+  .dimport__btn {
+    padding: 5px 8px;
+    font-size: 0.62rem;
+  }
+  .dchart {
+    height: 130px;
+  }
+  .dchart__bar {
+    width: 7px;
   }
 }
