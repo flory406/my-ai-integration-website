@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
-import { NAV_LINKS } from "../data/site.js";
+import { NAV } from "../data/site.js";
+import { useLang } from "../i18n/LanguageContext.jsx";
 import Logo from "./Logo.jsx";
 import Button from "./Button.jsx";
+import LangToggle from "./LangToggle.jsx";
 
 export default function Navbar() {
+  const { t } = useLang();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -15,19 +18,18 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // lock body scroll when mobile menu open
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
     return () => (document.body.style.overflow = "");
   }, [open]);
 
   return (
-    <header className={`nav ${scrolled ? "nav--scrolled" : ""}`}>
+    <header className={`nav ${scrolled ? "nav--scrolled" : ""} ${open ? "nav--open" : ""}`}>
       <div className="nav__inner container">
         <Logo onClick={() => setOpen(false)} />
 
         <nav className={`nav__links ${open ? "is-open" : ""}`}>
-          {NAV_LINKS.map((l) => (
+          {NAV.map((l) => (
             <NavLink
               key={l.to}
               to={l.to}
@@ -35,21 +37,23 @@ export default function Navbar() {
               className={({ isActive }) => `nav__link ${isActive ? "is-active" : ""}`}
               onClick={() => setOpen(false)}
             >
-              {l.label}
+              {t.nav[l.key]}
             </NavLink>
           ))}
-          <div className="nav__mobile-cta">
-            <Button to="/contact" variant="primary" arrow>
-              Book a Demo
+          <div className="nav__mobile-extra">
+            <LangToggle onChange={() => setOpen(false)} />
+            <Button to="/contact" variant="primary" arrow onClick={() => setOpen(false)}>
+              {t.common.bookDemo}
             </Button>
           </div>
         </nav>
 
         <div className="nav__right">
-          <span className="nav__cart">Cart ()</span>
+          <span className="nav__cart">{t.common.cart}</span>
           <div className="nav__desktop-cta">
+            <LangToggle />
             <Button to="/contact" variant="primary" arrow>
-              Book a Demo
+              {t.common.bookDemo}
             </Button>
           </div>
           <button

@@ -3,32 +3,28 @@ import PageHero from "../components/PageHero.jsx";
 import Reveal from "../components/Reveal.jsx";
 import Icon from "../components/Icon.jsx";
 import Button from "../components/Button.jsx";
-import { PRICING } from "../data/site.js";
-
-const FAQ = [
-  { q: "Can I change plans later?", a: "Yes — upgrade or downgrade anytime. Changes are prorated automatically." },
-  { q: "Is there a free trial?", a: "Every paid plan includes a 14-day trial. No credit card required to start." },
-  { q: "What counts as a session?", a: "A session is a single user's visit within a 30-minute active window." },
-  { q: "Do you offer discounts?", a: "Yes — annual billing saves 20%, and we have special pricing for nonprofits." },
-];
+import { useLang } from "../i18n/LanguageContext.jsx";
 
 export default function Pricing() {
+  const { t } = useLang();
+  const p = t.pricing;
   const [annual, setAnnual] = useState(false);
   const [open, setOpen] = useState(0);
 
   return (
     <>
       <PageHero
-        eyebrow="Pricing"
+        eyebrow={p.eyebrow}
         title={
           <>
-            Simple pricing that <span className="grad-text">scales with you</span>
+            {p.titlePre}
+            <span className="grad-text">{p.titleAccent}</span>
           </>
         }
-        subtitle="Start free. Upgrade when you're ready. No hidden fees, cancel anytime."
+        subtitle={p.subtitle}
       >
         <div className="billing">
-          <span className={!annual ? "is-active" : ""}>Monthly</span>
+          <span className={!annual ? "is-active" : ""}>{p.monthly}</span>
           <button
             className={`billing__toggle ${annual ? "on" : ""}`}
             onClick={() => setAnnual((v) => !v)}
@@ -37,7 +33,7 @@ export default function Pricing() {
             <span />
           </button>
           <span className={annual ? "is-active" : ""}>
-            Annual <em>−20%</em>
+            {p.annual} <em>{p.save}</em>
           </span>
         </div>
       </PageHero>
@@ -45,36 +41,35 @@ export default function Pricing() {
       <section className="section">
         <div className="container">
           <div className="plans">
-            {PRICING.map((p, i) => {
-              const numeric = !isNaN(Number(p.price));
-              const shown =
-                numeric && annual ? Math.round(Number(p.price) * 0.8) : p.price;
+            {p.plans.map((plan, i) => {
+              const numeric = !isNaN(Number(plan.price));
+              const shown = numeric && annual ? Math.round(Number(plan.price) * 0.8) : plan.price;
               return (
                 <Reveal
-                  key={p.name}
+                  key={plan.name}
                   delay={i * 0.08}
-                  className={`plan card ${p.featured ? "plan--featured" : ""}`}
+                  className={`plan card ${plan.featured ? "plan--featured" : ""}`}
                 >
-                  {p.featured && <span className="plan__ribbon">Most popular</span>}
-                  <h3 className="plan__name">{p.name}</h3>
-                  <p className="plan__tagline">{p.tagline}</p>
+                  {plan.featured && <span className="plan__ribbon">{p.popular}</span>}
+                  <h3 className="plan__name">{plan.name}</h3>
+                  <p className="plan__tagline">{plan.tagline}</p>
                   <div className="plan__price">
                     {numeric && <span className="plan__cur">$</span>}
                     <strong>{shown}</strong>
-                    <span className="plan__period">{p.period}</span>
+                    <span className="plan__period">{plan.period}</span>
                   </div>
                   <Button
                     to="/contact"
-                    variant={p.featured ? "primary" : "soft"}
+                    variant={plan.featured ? "primary" : "soft"}
                     full
-                    arrow={p.featured}
+                    arrow={plan.featured}
                   >
-                    {p.cta}
+                    {plan.cta}
                   </Button>
                   <ul className="plan__features">
-                    {p.features.map((f) => (
-                      <li key={f}>
-                        <Icon name="check" size={16} /> {f}
+                    {plan.features.map((feat) => (
+                      <li key={feat}>
+                        <Icon name="check" size={16} /> {feat}
                       </li>
                     ))}
                   </ul>
@@ -84,10 +79,10 @@ export default function Pricing() {
           </div>
 
           <Reveal className="sec-head faq-head">
-            <h2>Frequently asked questions</h2>
+            <h2>{p.faqHead}</h2>
           </Reveal>
           <div className="faq">
-            {FAQ.map((item, i) => (
+            {p.faq.map((item, i) => (
               <Reveal key={item.q} delay={i * 0.05}>
                 <button
                   className={`faq__item card ${open === i ? "is-open" : ""}`}

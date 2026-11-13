@@ -3,14 +3,11 @@ import PageHero from "../components/PageHero.jsx";
 import Reveal from "../components/Reveal.jsx";
 import Icon from "../components/Icon.jsx";
 import Button from "../components/Button.jsx";
-
-const INFO = [
-  { icon: "mail", label: "Email", value: "hello@florysite.com" },
-  { icon: "phone", label: "Phone", value: "+1 (555) 014-2920" },
-  { icon: "pin", label: "Office", value: "Remote-first · 40+ countries" },
-];
+import { useLang } from "../i18n/LanguageContext.jsx";
 
 export default function Contact() {
+  const { t } = useLang();
+  const c = t.contact;
   const [form, setForm] = useState({ name: "", email: "", company: "", message: "" });
   const [sent, setSent] = useState(false);
   const [errors, setErrors] = useState({});
@@ -19,9 +16,9 @@ export default function Contact() {
 
   const validate = () => {
     const err = {};
-    if (!form.name.trim()) err.name = "Please enter your name";
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) err.email = "Enter a valid email";
-    if (form.message.trim().length < 10) err.message = "Tell us a bit more (10+ chars)";
+    if (!form.name.trim()) err.name = c.errName;
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) err.email = c.errEmail;
+    if (form.message.trim().length < 10) err.message = c.errMessage;
     return err;
   };
 
@@ -29,28 +26,29 @@ export default function Contact() {
     e.preventDefault();
     const err = validate();
     setErrors(err);
-    if (Object.keys(err).length === 0) {
-      setSent(true);
-    }
+    if (Object.keys(err).length === 0) setSent(true);
   };
+
+  const firstName = form.name.trim().split(" ")[0] || c.thereName;
 
   return (
     <>
       <PageHero
-        eyebrow="Contact"
+        eyebrow={c.eyebrow}
         title={
           <>
-            Let's <span className="grad-text">talk</span>
+            {c.titlePre}
+            <span className="grad-text">{c.titleAccent}</span>
           </>
         }
-        subtitle="Book a demo, ask a question, or just say hi. We usually reply within a day."
+        subtitle={c.subtitle}
       />
 
       <section className="section">
         <div className="container">
           <div className="contact">
             <Reveal className="contact__info">
-              {INFO.map((item) => (
+              {c.info.map((item) => (
                 <div className="contact__info-item card" key={item.label}>
                   <span className="contact__info-icon">
                     <Icon name={item.icon} size={20} />
@@ -62,17 +60,13 @@ export default function Contact() {
                 </div>
               ))}
               <div className="contact__promise card">
-                <h3>What happens next?</h3>
+                <h3>{c.promiseTitle}</h3>
                 <ul>
-                  <li>
-                    <Icon name="check" size={16} /> We review your message
-                  </li>
-                  <li>
-                    <Icon name="check" size={16} /> A real human replies within 24h
-                  </li>
-                  <li>
-                    <Icon name="check" size={16} /> We book a time that suits you
-                  </li>
+                  {c.promise.map((line) => (
+                    <li key={line}>
+                      <Icon name="check" size={16} /> {line}
+                    </li>
+                  ))}
                 </ul>
               </div>
             </Reveal>
@@ -83,8 +77,8 @@ export default function Contact() {
                   <span className="contact__success-icon">
                     <Icon name="check" size={34} />
                   </span>
-                  <h3>Message sent!</h3>
-                  <p>Thanks, {form.name.split(" ")[0] || "there"}. We'll be in touch shortly.</p>
+                  <h3>{c.successTitle}</h3>
+                  <p>{c.successText.replace("{name}", firstName)}</p>
                   <Button
                     variant="soft"
                     onClick={() => {
@@ -92,59 +86,55 @@ export default function Contact() {
                       setForm({ name: "", email: "", company: "", message: "" });
                     }}
                   >
-                    Send another
+                    {t.common.sendAnother}
                   </Button>
                 </div>
               ) : (
                 <form onSubmit={submit} noValidate>
                   <div className="field">
-                    <label>Name</label>
+                    <label>{c.fName}</label>
                     <input
                       value={form.name}
                       onChange={update("name")}
-                      placeholder="Jane Doe"
+                      placeholder={c.phName}
                       className={errors.name ? "has-error" : ""}
                     />
                     {errors.name && <span className="field__err">{errors.name}</span>}
                   </div>
                   <div className="field-row">
                     <div className="field">
-                      <label>Email</label>
+                      <label>{c.fEmail}</label>
                       <input
                         type="email"
                         value={form.email}
                         onChange={update("email")}
-                        placeholder="jane@company.com"
+                        placeholder={c.phEmail}
                         className={errors.email ? "has-error" : ""}
                       />
                       {errors.email && <span className="field__err">{errors.email}</span>}
                     </div>
                     <div className="field">
-                      <label>Company <em>(optional)</em></label>
-                      <input
-                        value={form.company}
-                        onChange={update("company")}
-                        placeholder="Acme Inc."
-                      />
+                      <label>
+                        {c.fCompany} <em>{c.fCompanyOpt}</em>
+                      </label>
+                      <input value={form.company} onChange={update("company")} placeholder={c.phCompany} />
                     </div>
                   </div>
                   <div className="field">
-                    <label>Message</label>
+                    <label>{c.fMessage}</label>
                     <textarea
                       rows={5}
                       value={form.message}
                       onChange={update("message")}
-                      placeholder="Tell us what you're looking for…"
+                      placeholder={c.phMessage}
                       className={errors.message ? "has-error" : ""}
                     />
                     {errors.message && <span className="field__err">{errors.message}</span>}
                   </div>
                   <Button type="submit" variant="primary" full arrow>
-                    Send message
+                    {t.common.sendMessage}
                   </Button>
-                  <p className="contact__fineprint">
-                    This is a portfolio demo — the form validates but doesn't send real email.
-                  </p>
+                  <p className="contact__fineprint">{c.fineprint}</p>
                 </form>
               )}
             </Reveal>

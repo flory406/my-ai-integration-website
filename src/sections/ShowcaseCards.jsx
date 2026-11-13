@@ -1,42 +1,42 @@
 import Reveal from "../components/Reveal.jsx";
 import Icon from "../components/Icon.jsx";
 import Sparkline from "../components/Sparkline.jsx";
+import { useLang } from "../i18n/LanguageContext.jsx";
 
 export default function ShowcaseCards() {
+  const { t } = useLang();
+  const s = t.showcase;
+
   return (
     <section className="showcase section">
       <div className="container">
         <div className="showcase__grid">
           {/* Balance card */}
           <Reveal className="card showcase__card" delay={0}>
-            <h3 className="showcase__title">Balance</h3>
-            <p className="showcase__text">
-              Keep tasks, budgets and priorities in balance with a single live view.
-            </p>
+            <h3 className="showcase__title">{s.balanceTitle}</h3>
+            <p className="showcase__text">{s.balanceText}</p>
             <div className="showcase__tasks">
               <div className="stask stask--active">
                 <Icon name="bars" size={16} /> PER-08
-                <span className="stask__dot" /> Making testing very design sy…
+                <span className="stask__dot" /> {s.task1}
               </div>
               <div className="stask">
                 <Icon name="bars" size={16} /> PER-07
-                <span className="stask__dot" /> Create a working prototype
+                <span className="stask__dot" /> {s.task2}
               </div>
             </div>
           </Reveal>
 
           {/* Users card */}
           <Reveal className="card showcase__card" delay={0.1}>
-            <h3 className="showcase__title">Users</h3>
-            <p className="showcase__text">
-              Watch your audience grow in real time and understand what moves the needle.
-            </p>
+            <h3 className="showcase__title">{s.usersTitle}</h3>
+            <p className="showcase__text">{s.usersText}</p>
             <div className="showcase__stack">
               <span className="sstack sstack--back" />
               <span className="sstack sstack--mid" />
               <div className="sstack sstack--front">
                 <div className="sstack__top">
-                  <span>Total Users</span>
+                  <span>{s.totalUsers}</span>
                   <span className="dstat__delta up">
                     <Icon name="arrow" size={12} /> 6.9%
                   </span>
@@ -54,7 +54,7 @@ export default function ShowcaseCards() {
             <div className="funnel">
               <span className="funnel__beam" />
               <span className="funnel__chip">
-                <Icon name="spark" size={30} stroke={2.2} />
+                <Icon name="funnel" size={34} stroke={2} />
               </span>
             </div>
           </Reveal>

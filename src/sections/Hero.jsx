@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import Button from "../components/Button.jsx";
 import Icon from "../components/Icon.jsx";
+import { useLang } from "../i18n/LanguageContext.jsx";
 
 const container = {
   hidden: {},
@@ -12,6 +13,9 @@ const item = {
 };
 
 export default function Hero() {
+  const { t } = useLang();
+  const h = t.hero;
+
   return (
     <section className="hero">
       <motion.div
@@ -22,29 +26,29 @@ export default function Hero() {
       >
         <motion.div variants={item} className="hero__badge">
           <span className="badge">
-            <span className="badge__tag">Whats New</span>
-            Ease Update v0.1
+            <span className="badge__tag">{h.badgeTag}</span>
+            {h.badgeText}
             <Icon name="arrow" size={14} />
           </span>
         </motion.div>
 
         <motion.h1 variants={item} className="hero__title">
-          <span className="grad-text">Intelligent Solutions</span>
+          <span className="grad-text">{h.title1}</span>
           <br />
-          Powered by AI.
+          {h.title2}
         </motion.h1>
 
         <motion.p variants={item} className="hero__sub">
-          Gain clarity and harness the power of your data with FlorySite.
-          <br className="hide-mobile" /> Our intuitive dashboard provides real-time analytics.
+          {h.subtitle1}
+          <br className="hide-mobile" /> {h.subtitle2}
         </motion.p>
 
         <motion.div variants={item} className="hero__actions">
           <Button to="/features" variant="ghost" arrow>
-            Read More
+            {t.common.readMore}
           </Button>
           <Button to="/contact" variant="primary" arrow>
-            Book a Demo
+            {t.common.bookDemo}
           </Button>
         </motion.div>
       </motion.div>

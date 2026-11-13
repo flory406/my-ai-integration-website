@@ -1,36 +1,35 @@
+import { Link } from "react-router-dom";
 import Reveal from "../components/Reveal.jsx";
 import Icon from "../components/Icon.jsx";
-import { FEATURE_LIST } from "../data/site.js";
+import { useLang } from "../i18n/LanguageContext.jsx";
 
 export default function PowerfulFeatures() {
+  const { t } = useLang();
+  const p = t.powerful;
+
   return (
     <section className="pfeat section">
       <div className="container">
         <Reveal className="sec-head">
-          <h2>Powerful Features</h2>
-          <p>
-            Explore the frontier of coding evolution with FlorySite Unleashed. Our latest
-            features redefine the boundaries of what's possible in analytics tools.
-          </p>
+          <h2>{p.title}</h2>
+          <p>{p.subtitle}</p>
         </Reveal>
 
         <div className="pfeat__grid">
           <Reveal className="pfeat__text">
             <h3>
-              Top Management, to help you <span className="grad-text">see the bigger picture</span>
+              {p.bigTitlePre}
+              <span className="grad-text">{p.bigTitleAccent}</span>
             </h3>
-            <p>
-              Bring every metric into one calm, intelligent dashboard. Spot trends, forecast
-              demand, and act with confidence.
-            </p>
-            <p>Built for teams who'd rather decide than dig.</p>
-            <a className="pfeat__link" href="/features">
-              See Doc <Icon name="arrow" size={16} />
-            </a>
+            <p>{p.bigText1}</p>
+            <p>{p.bigText2}</p>
+            <Link className="pfeat__link" to="/features">
+              {t.common.seeDoc} <Icon name="arrow" size={16} />
+            </Link>
           </Reveal>
 
           <div className="pfeat__list">
-            {FEATURE_LIST.map((f, i) => (
+            {p.features.map((f, i) => (
               <Reveal
                 key={f.title}
                 delay={i * 0.08}

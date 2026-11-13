@@ -2,36 +2,40 @@ import PageHero from "../components/PageHero.jsx";
 import Reveal from "../components/Reveal.jsx";
 import Icon from "../components/Icon.jsx";
 import Button from "../components/Button.jsx";
-import { FEATURE_LIST, BIG_FEATURES } from "../data/site.js";
+import { useLang } from "../i18n/LanguageContext.jsx";
 
 export default function Features() {
+  const { t } = useLang();
+  const f = t.features;
+
   return (
     <>
       <PageHero
-        eyebrow="Features"
+        eyebrow={f.eyebrow}
         title={
           <>
-            Everything you need, <span className="grad-text">nothing you don't</span>
+            {f.titlePre}
+            <span className="grad-text">{f.titleAccent}</span>
           </>
         }
-        subtitle="Explore the frontier of analytics evolution with FlorySite. Our latest features redefine the boundaries of what's possible."
+        subtitle={f.subtitle}
       />
 
       <section className="section">
         <div className="container">
           <div className="fgrid">
-            {FEATURE_LIST.map((f, i) => (
-              <Reveal key={f.title} delay={i * 0.07} className="fgrid__card card">
+            {t.powerful.features.map((item, i) => (
+              <Reveal key={item.title} delay={i * 0.07} className="fgrid__card card">
                 <span className="fgrid__icon">
-                  <Icon name={f.icon} size={24} />
+                  <Icon name={item.icon} size={24} />
                 </span>
-                <h3>{f.title}</h3>
-                <p>{f.text}</p>
+                <h3>{item.title}</h3>
+                <p>{item.text}</p>
               </Reveal>
             ))}
           </div>
 
-          {BIG_FEATURES.map((bf, i) => (
+          {f.big.map((bf, i) => (
             <Reveal key={bf.title} className={`bigfeat ${i % 2 ? "bigfeat--rev" : ""}`}>
               <div className="bigfeat__text">
                 <span className="bigfeat__icon">
@@ -56,11 +60,12 @@ export default function Features() {
 
           <Reveal className="fcta card">
             <h2>
-              See it in <span className="grad-text">action</span>
+              {f.ctaPre}
+              <span className="grad-text">{f.ctaAccent}</span>
             </h2>
-            <p>Book a demo and we'll walk you through your own data in 20 minutes.</p>
+            <p>{f.ctaText}</p>
             <Button to="/contact" variant="primary" arrow>
-              Book a Demo
+              {t.common.bookDemo}
             </Button>
           </Reveal>
         </div>

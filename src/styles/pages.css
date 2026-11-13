@@ -444,6 +444,37 @@
   padding-top: var(--space-3);
 }
 
+/* ---------- Post cover (generated visual) ---------- */
+.postcover {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+.postcover svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.postcover__icon {
+  position: absolute;
+  left: 20px;
+  bottom: 20px;
+  width: 52px;
+  height: 52px;
+  border-radius: 15px;
+  display: grid;
+  place-items: center;
+  color: #fff;
+  box-shadow: 0 10px 30px -8px rgba(0, 0, 0, 0.6);
+}
+.postcover--feature .postcover__icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 18px;
+  left: 28px;
+  bottom: 28px;
+}
+
 /* ---------- Blog ---------- */
 .post-feature {
   display: grid;

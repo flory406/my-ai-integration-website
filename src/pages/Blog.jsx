@@ -1,22 +1,25 @@
 import { Link } from "react-router-dom";
 import PageHero from "../components/PageHero.jsx";
 import Reveal from "../components/Reveal.jsx";
-import Icon from "../components/Icon.jsx";
-import { POSTS } from "../data/site.js";
+import PostCover from "../components/PostCover.jsx";
+import { useLang } from "../i18n/LanguageContext.jsx";
 
 export default function Blog() {
-  const [featured, ...rest] = POSTS;
+  const { t } = useLang();
+  const b = t.blog;
+  const [featured, ...rest] = b.posts;
 
   return (
     <>
       <PageHero
-        eyebrow="Blog"
+        eyebrow={b.eyebrow}
         title={
           <>
-            Ideas on <span className="grad-text">data, design & growth</span>
+            {b.titlePre}
+            <span className="grad-text">{b.titleAccent}</span>
           </>
         }
-        subtitle="Thoughts from the team building FlorySite — on analytics, product and the craft of clear interfaces."
+        subtitle={b.subtitle}
       />
 
       <section className="section">
@@ -24,15 +27,14 @@ export default function Blog() {
           <Reveal>
             <Link to={`/blog/${featured.slug}`} className="post-feature card">
               <div className="post-feature__media">
-                <span className="post-feature__glow" />
-                <Icon name="spark" size={70} stroke={1.2} />
+                <PostCover slug={featured.slug} size="feature" />
               </div>
               <div className="post-feature__body">
                 <span className="post__cat">{featured.category}</span>
                 <h2>{featured.title}</h2>
                 <p>{featured.excerpt}</p>
                 <span className="post__meta">
-                  {featured.date} · {featured.read} read
+                  {featured.date} · {featured.read} {t.common.read}
                 </span>
               </div>
             </Link>
@@ -43,14 +45,14 @@ export default function Blog() {
               <Reveal key={p.slug} delay={i * 0.06}>
                 <Link to={`/blog/${p.slug}`} className="post card">
                   <div className="post__media">
-                    <span className="post__media-glow" />
+                    <PostCover slug={p.slug} />
                   </div>
                   <div className="post__body">
                     <span className="post__cat">{p.category}</span>
                     <h3>{p.title}</h3>
                     <p>{p.excerpt}</p>
                     <span className="post__meta">
-                      {p.date} · {p.read} read
+                      {p.date} · {p.read} {t.common.read}
                     </span>
                   </div>
                 </Link>

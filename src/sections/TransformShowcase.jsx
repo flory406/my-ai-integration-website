@@ -2,21 +2,26 @@ import { motion } from "framer-motion";
 import Reveal from "../components/Reveal.jsx";
 import Button from "../components/Button.jsx";
 import DashboardMock from "../components/DashboardMock.jsx";
+import { useLang } from "../i18n/LanguageContext.jsx";
 
 export default function TransformShowcase() {
+  const { t } = useLang();
+  const tr = t.transform;
+
   return (
     <section className="transform section">
       <div className="container">
         <div className="transform__grid">
           <Reveal className="transform__text">
             <h2>
-              Transform Your Work <br /> with <span className="grad-text">FlorySite</span>
+              {tr.titlePre} <br /> {tr.titleWith}
+              <span className="grad-text">FlorySite</span>
             </h2>
-            <p>Embark on a transformative journey of data excellence with FlorySite.</p>
+            <p>{tr.subtitle}</p>
             <form className="transform__form" onSubmit={(e) => e.preventDefault()}>
-              <input type="email" placeholder="Enter email here" aria-label="Email" />
+              <input type="email" placeholder={t.common.emailPlaceholder} aria-label="Email" />
               <Button type="submit" variant="primary">
-                Get Started
+                {t.common.getStarted}
               </Button>
             </form>
           </Reveal>

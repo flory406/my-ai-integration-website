@@ -1,4 +1,5 @@
-import { STATS, IMPORTERS } from "../data/site.js";
+import { IMPORTERS } from "../data/site.js";
+import { useLang } from "../i18n/LanguageContext.jsx";
 import Icon from "./Icon.jsx";
 import Sparkline from "./Sparkline.jsx";
 
@@ -9,7 +10,6 @@ const SPARKS = [
   [40, 32, 54, 38, 60, 44, 36, 58, 48, 64],
 ];
 
-// monthly bar-chart data (two bars per month)
 const MONTHS = [
   { m: "Dec", a: 40, b: 24 },
   { m: "Jan", a: 13, b: 26 },
@@ -21,28 +21,31 @@ const MONTHS = [
 ];
 
 export default function DashboardMock({ compact = false }) {
+  const { t } = useLang();
+  const d = t.dashboard;
+
   return (
     <div className={`dash ${compact ? "dash--compact" : ""}`}>
       {/* top bar */}
       <div className="dash__bar">
         <div className="dash__logo">
-          REDSUN<span className="dash__logo-dot" />
+          FLORY<span className="dash__logo-dot" />
         </div>
         <div className="dash__menu">
           <span className="is-active">
-            <Icon name="analytics" size={16} /> Analytics
+            <Icon name="analytics" size={16} /> {d.menu.analytics}
           </span>
           <span>
-            <Icon name="bag" size={16} /> Products
+            <Icon name="bag" size={16} /> {d.menu.products}
           </span>
           <span>
-            <Icon name="users" size={16} /> Customers
+            <Icon name="users" size={16} /> {d.menu.customers}
           </span>
           <span>
-            <Icon name="campaign" size={16} /> Campaigns
+            <Icon name="campaign" size={16} /> {d.menu.campaigns}
           </span>
           <span>
-            <Icon name="settings" size={16} /> Settings
+            <Icon name="settings" size={16} /> {d.menu.settings}
           </span>
         </div>
         <div className="dash__bar-right">
@@ -56,20 +59,20 @@ export default function DashboardMock({ compact = false }) {
       {/* body */}
       <div className="dash__body">
         <div className="dash__head">
-          <h3>Dashboard</h3>
+          <h3>{d.title}</h3>
           <span className="dash__invite">
-            <Icon name="users" size={16} /> Invite users
+            <Icon name="users" size={16} /> {t.common.inviteUsers}
           </span>
         </div>
 
         {/* stat cards */}
         <div className="dash__stats">
-          {STATS.map((s, i) => (
+          {d.stats.map((s, i) => (
             <div className={`dstat ${i === 1 ? "dstat--lit" : ""}`} key={s.label}>
               <div className="dstat__top">
                 <span className="dstat__label">{s.label}</span>
                 <span className={`dstat__delta ${s.up ? "up" : "down"}`}>
-                  <Icon name={s.up ? "arrow" : "arrow"} size={12} />
+                  <Icon name="arrow" size={12} />
                   {s.delta}
                 </span>
               </div>
@@ -85,8 +88,8 @@ export default function DashboardMock({ compact = false }) {
         <div className="dash__panels">
           <div className="dpanel">
             <div className="dpanel__head">
-              <h4>Import data into Front Dashboard</h4>
-              <p>See and talk to your users and leads immediately</p>
+              <h4>{d.importTitle}</h4>
+              <p>{d.importSub}</p>
             </div>
             <ul className="dimport">
               {IMPORTERS.map((im) => (
@@ -94,9 +97,9 @@ export default function DashboardMock({ compact = false }) {
                   <span className="dimport__icon" style={{ background: im.color }} />
                   <span className="dimport__meta">
                     <strong>{im.name}</strong>
-                    <small>{im.type}</small>
+                    <small>{d.usersLabel}</small>
                   </span>
-                  <span className="dimport__btn">Launch importer</span>
+                  <span className="dimport__btn">{t.common.launchImporter}</span>
                 </li>
               ))}
             </ul>
@@ -104,7 +107,7 @@ export default function DashboardMock({ compact = false }) {
 
           <div className="dpanel">
             <div className="dpanel__head">
-              <h4>Monthly expenses</h4>
+              <h4>{d.monthly}</h4>
             </div>
             <div className="dchart">
               <div className="dchart__grid">

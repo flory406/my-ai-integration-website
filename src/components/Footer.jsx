@@ -1,9 +1,13 @@
 import { Link } from "react-router-dom";
-import { FOOTER_LINKS, SOCIALS } from "../data/site.js";
+import { FOOTER_COLS, SOCIALS } from "../data/site.js";
+import { useLang } from "../i18n/LanguageContext.jsx";
 import Logo from "./Logo.jsx";
 import Button from "./Button.jsx";
 
 export default function Footer() {
+  const { t } = useLang();
+  const f = t.footer;
+
   return (
     <footer className="footer">
       <div className="footer__glow" />
@@ -12,34 +16,39 @@ export default function Footer() {
           <div className="footer__brand">
             <Logo />
             <h3 className="footer__headline">
-              Transform Your Work <br /> with FlorySite
+              {f.headline1} <br /> {f.headline2}
             </h3>
-            <p className="footer__blurb">
-              Intelligent analytics and automation for teams that want clarity, not clutter.
-              Built to scale from your first user to your millionth.
-            </p>
+            <p className="footer__blurb">{f.blurb}</p>
             <div className="footer__cta">
               <Button to="/contact" variant="primary" arrow>
-                Book a Demo
+                {t.common.bookDemo}
               </Button>
             </div>
           </div>
 
           <div className="footer__cols">
-            {Object.entries(FOOTER_LINKS).map(([title, links]) => (
-              <div className="footer__col" key={title}>
-                <span className="footer__col-title">{title}</span>
-                <ul>
-                  {links.map((l) => (
-                    <li key={l.label}>
-                      <Link to={l.to}>{l.label}</Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
             <div className="footer__col">
-              <span className="footer__col-title">Social Media</span>
+              <span className="footer__col-title">{f.colMain}</span>
+              <ul>
+                {FOOTER_COLS.colMain.map((l) => (
+                  <li key={l.key + l.to}>
+                    <Link to={l.to}>{f.links[l.key]}</Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="footer__col">
+              <span className="footer__col-title">{f.colResources}</span>
+              <ul>
+                {FOOTER_COLS.colResources.map((l) => (
+                  <li key={l.key + l.to}>
+                    <Link to={l.to}>{f.links[l.key]}</Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="footer__col">
+              <span className="footer__col-title">{f.colSocial}</span>
               <ul>
                 {SOCIALS.map((s) => (
                   <li key={s}>
@@ -54,10 +63,10 @@ export default function Footer() {
         </div>
 
         <div className="footer__bottom">
-          <span>© {new Date().getFullYear()} FlorySite. All rights reserved.</span>
-          <span className="footer__made">
-            Crafted with care · Portfolio demo
+          <span>
+            © {new Date().getFullYear()} FlorySite. {f.rights}
           </span>
+          <span className="footer__made">{f.made}</span>
         </div>
       </div>
     </footer>

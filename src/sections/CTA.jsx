@@ -1,22 +1,27 @@
 import Reveal from "../components/Reveal.jsx";
 import Button from "../components/Button.jsx";
+import { useLang } from "../i18n/LanguageContext.jsx";
 
 export default function CTA() {
+  const { t } = useLang();
+  const c = t.cta;
+
   return (
     <section className="cta section">
       <div className="container">
         <Reveal className="cta__box card">
           <span className="cta__glow" />
           <h2>
-            Ready to harness the <span className="grad-text">power of your data?</span>
+            {c.titlePre}
+            <span className="grad-text">{c.titleAccent}</span>
           </h2>
-          <p>Join 4,000+ teams already growing with FlorySite. No credit card required.</p>
+          <p>{c.subtitle}</p>
           <div className="cta__actions">
             <Button to="/pricing" variant="ghost" arrow>
-              View Pricing
+              {t.common.viewPricing}
             </Button>
             <Button to="/contact" variant="primary" arrow>
-              Book a Demo
+              {t.common.bookDemo}
             </Button>
           </div>
         </Reveal>

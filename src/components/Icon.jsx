@@ -86,6 +86,30 @@ const paths = {
     <path d="M5 4h4l2 5-3 2a11 11 0 0 0 5 5l2-3 5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z" />
   ),
   spark: <path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5L18 18M18 6l-2.5 2.5M8.5 15.5L6 18" />,
+  cloud: <path d="M7 18a4 4 0 0 1 0-8 5 5 0 0 1 9.6-1.5A3.5 3.5 0 0 1 18 18z" />,
+  funnel: <path d="M3 5h18l-7 8v6l-4-2v-4z" />,
+  palette: (
+    <>
+      <path d="M12 3a9 9 0 0 0 0 18c1.1 0 1.8-.9 1.8-2 0-1.3-1-2-1-2.8 0-.7.6-1.2 1.4-1.2H16a4 4 0 0 0 4-4c0-4.4-3.6-8-8-8z" />
+      <circle cx="7.5" cy="10.5" r="1" />
+      <circle cx="12" cy="7.5" r="1" />
+      <circle cx="16.5" cy="10.5" r="1" />
+    </>
+  ),
+  cube: (
+    <>
+      <path d="M12 2l9 5v10l-9 5-9-5V7z" />
+      <path d="M12 12l9-5M12 12v10M12 12L3 7" />
+    </>
+  ),
+  code: <path d="M8 6l-5 6 5 6M16 6l5 6-5 6" />,
+  bulb: (
+    <>
+      <path d="M9 18h6M10 21h4" />
+      <path d="M12 3a6 6 0 0 0-4 10.5c.7.7 1 1.2 1 2.5h6c0-1.3.3-1.8 1-2.5A6 6 0 0 0 12 3z" />
+    </>
+  ),
+  trend: <path d="M3 17l6-6 4 4 8-8M15 7h6v6" />,
 };
 
 export default function Icon({ name, size = 22, stroke = 2, className = "", style }) {
