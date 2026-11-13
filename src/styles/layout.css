@@ -173,10 +173,14 @@
     gap: var(--space-5);
     margin-top: var(--space-5);
   }
-  /* keep the top row (logo + burger) solid above the menu overlay */
+  /* keep the top row (logo + burger) solid above the menu overlay.
+     Clear backdrop-filter: it would make the header a containing block
+     for the fixed menu overlay, trapping it in the 80px-tall bar. */
   .nav--open {
     background: #07070c;
     border-bottom-color: var(--border);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
   }
   .nav__links {
     position: fixed;
